@@ -97,6 +97,10 @@ const showNextMsg = () => {
 
       let oldCb = instance.callback;
       instance.callback = (action, instance) => {
+        window.parent.document.body.removeChild(instance.$el);
+        window.parent.document.body.removeChild(
+          window.parent.document.querySelector('.v-modal')
+        );
         oldCb(action, instance);
         showNextMsg();
       };
@@ -111,7 +115,7 @@ const showNextMsg = () => {
           instance[prop] = true;
         }
       });
-      document.body.appendChild(instance.$el);
+      window.parent.document.body.appendChild(instance.$el);
 
       Vue.nextTick(() => {
         instance.visible = true;
